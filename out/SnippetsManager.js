@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const vscode_1 = require("vscode");
 const os = require("os");
 const fs = require("fs");
 const util = require("util");
+const vscode = require("vscode");
 const jsonc = require("jsonc-parser");
 class SnippetsManager {
     addSnippet(snippet) {
         var settingsPath = '';
         var directorySeparator = '/';
-        var vscodeSubdir = (vscode_1.env.appName.includes("Visual Studio Code - Insiders") ? 'Code - Insiders' : 'Code');
+        var vscodeSubdir = (vscode.env.appName.includes("Visual Studio Code - Insiders") ? 'Code - Insiders' : 'Code');
         switch (os.type()) {
             case 'Darwin':
                 settingsPath = process.env.HOME + "/Library/Application Support/" + vscodeSubdir + "/User/";
@@ -43,11 +43,11 @@ class SnippetsManager {
                     var errorText = jsonc.printParseErrorCode(e.error) + " error at the offset " + e.offset;
                     errors.push(errorText);
                 });
-                vscode_1.window.showErrorMessage("Error" + ((parsingErrors.length > 1) ? "s" : "") + " on parsing current " + snippet.language + " snippet file: " + errors.join(', '));
+                vscode.window.showErrorMessage("Error" + ((parsingErrors.length > 1) ? "s" : "") + " on parsing current " + snippet.language + " snippet file: " + errors.join(', '));
                 return;
             }
             if (snippets[snippet.name] !== undefined) {
-                vscode_1.window.showErrorMessage("A snippet " + snippet.name + " already exists - so adding a unique id");
+                vscode.window.showErrorMessage("A snippet " + snippet.name + " already exists - so adding a unique id");
                 snippet.name = snippet.name + "_" + this.uuidv4();
             }
             this.normalizeSnippet(snippet);
@@ -64,7 +64,7 @@ class SnippetsManager {
             });
             var fileContent = jsonc.applyEdits(jsonText, edit);
             fs.writeFile(snippetFile, fileContent, () => { });
-            vscode_1.window.showInformationMessage("Snippet " + snippet.name + " added to " + snippet.language + " snippets");
+            vscode.window.showInformationMessage("Snippet " + snippet.name + " added to " + snippet.language + " snippets");
         });
     }
     uuidv4() {
@@ -82,4 +82,5 @@ class SnippetsManager {
         }
     }
 }
+exports.default = SnippetsManager;
 //# sourceMappingURL=SnippetsManager.js.map

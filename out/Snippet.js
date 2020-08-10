@@ -1,7 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class Snippet {
     constructor() {
-        this._body = '';
+        this._body = [];
         this._name = '';
         this._prefix = '';
         this._language = '';
@@ -9,9 +10,6 @@ class Snippet {
     }
     get body() {
         return this._body;
-    }
-    set body(body) {
-        this._body = body;
     }
     get name() {
         return this._name;
@@ -37,8 +35,9 @@ class Snippet {
     set description(description) {
         this._description = description;
     }
-    static buildBody(code) {
-        return code.replace(/\t/g, '\\t').split("\n");
+    buildBody(code) {
+        this._body = code.replace(/\t/g, '\\t').replace(/\r/g, '').split("\n");
     }
 }
+exports.default = Snippet;
 //# sourceMappingURL=Snippet.js.map

@@ -82,4 +82,4 @@ class SnippetsManager {
         }
     }
 }
-//# sourceMappingURL=SnippetsManager.js.map
+//# sourceMappingURL=sdcvsdSnippetsManager.js.map
