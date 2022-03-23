@@ -15,7 +15,7 @@ function activate(context) {
 		var selectedText = editor.document.getText(selection);
 
 		if(!editor || selection.isEmpty) {
-			vscode.window.showWarningMessage('Cannot create snippet from empty string. Select some text first.'); 
+			vscode.window.showWarningMessage('Cannot create snippet from empty string. Select some text first.');
 			return;
 		}
 
@@ -55,7 +55,7 @@ function activate(context) {
 			.then( () => {
 				snippet.body = selectedText;
 
-				snippetsManager.addSnippet(snippet);
+				snippetsManager.addSnippet(snippet, context);
 			});
 
 	});
