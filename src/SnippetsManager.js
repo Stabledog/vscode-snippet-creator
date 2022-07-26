@@ -11,12 +11,12 @@ class SnippetsManager {
          * the officially documented one when VSCode is in portable mode.
          * It's the safest way to get the unpredictable path of user-data folder.
          */
-        const snippetFile = path.join(
-            context.globalStorageUri.fsPath, '..', '..', 'snippets', snippet.language + '.json'
-        );
+        const snippetDir = path.join( context.globalStorageUri.fsPath, '..', '..', 'snippets');
+        const snippetFile = path.join( snippetDir, snippet.language + '.json');
 
         if (!fs.existsSync(snippetFile)) {
             try {
+                fs.mkdirSync(snippetDir, { recursive: true });
                 fs.openSync(snippetFile, "w+");
                 fs.writeFileSync(snippetFile, '{}');
             }
