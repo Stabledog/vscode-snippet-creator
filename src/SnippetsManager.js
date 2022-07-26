@@ -16,8 +16,14 @@ class SnippetsManager {
         );
 
         if (!fs.existsSync(snippetFile)) {
-            fs.openSync(snippetFile, "w+");
-            fs.writeFileSync(snippetFile, '{}');
+            try {
+                fs.openSync(snippetFile, "w+");
+                fs.writeFileSync(snippetFile, '{}');
+            }
+            catch (saveErr) {
+                console.error(`Failed saving snippet file ${snippetFile} in addSnippet()`);
+                throw saveErr;
+            }
         }
 
         fs.readFile(snippetFile, (err, text) => {
